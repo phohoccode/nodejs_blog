@@ -1,7 +1,13 @@
 const express = require('express')
-const { engine } = require('express-handlebars')
+const { engine } = require('express-handlebars') 
 const morgan = require('morgan') // Middleware để ghi lại (log) các yêu cầu HTTP.
 const path = require('path') //  Module tích hợp sẵn của Node.js để làm việc với đường dẫn tệp tin và thư mục.
+
+const route = require('./routes')
+const db = require('./config/db')
+
+// Kết nối database (mongoDB)
+db.connect()
 
 // Khởi tạo ứng dụng Express và cấu hình cổng:
 const app = express()
@@ -28,20 +34,9 @@ app.set('view engine', 'hbs')
 
 // Đặt đường dẫn đến thư mục chứa các tệp template.
 app.set('views', path.join(__dirname, 'resources/views'))
-console.log(path.join(__dirname, 'resources/views'))
 
-// Định nghĩa các route (tuyến đường):
-app.get('/', (req, res) => {
-    res.render('home')
-})
-
-app.get('/news', (req, res) => {
-    res.render('news')
-})
-
-app.get('/search', (req, res) => {
-    res.render('search')
-})
+// Khởi tạo route
+route(app)
 
 // Khởi động máy chủ:
 app.listen(port, () => console.log(`http://localhost:${port}`))
