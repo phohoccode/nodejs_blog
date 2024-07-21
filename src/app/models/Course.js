@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const slug = require('mongoose-slug-generator');
+const slug = require('mongoose-slug-updater');
 
 const Schema = mongoose.Schema
 mongoose.plugin(slug);
@@ -14,4 +14,5 @@ const Course = new Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model('Course', Course)
+module.exports = 
+    mongoose.model('Course', Course)
