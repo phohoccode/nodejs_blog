@@ -5,9 +5,9 @@ class MeController {
         try {
             const [countCoursesDeleted, courses] = await Promise.all([
                 Course.countDocumentsWithDeleted({ deleted: true }),
-                Course.find({}).lean()
+                Course.find({}).lean().sortable(req)
             ]);
-    
+
             res.render('me/storedCourses', {
                 courses,
                 countCoursesDeleted
@@ -15,7 +15,7 @@ class MeController {
         } catch (error) {
             console.log(error);
         }
-    }    
+    }
 
     async trashCourses(req, res) {
         try {

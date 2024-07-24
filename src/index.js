@@ -1,8 +1,10 @@
 const express = require('express')
-const { engine } = require('express-handlebars') 
+const { engine } = require('express-handlebars')
 const morgan = require('morgan') // Middleware để ghi lại (log) các yêu cầu HTTP.
 const methodOverride = require('method-override')
 const path = require('path') //  Module tích hợp sẵn của Node.js để làm việc với đường dẫn tệp tin và thư mục.
+
+const sortMiddleware = require('./app/middlewares/sortMiddleware')
 
 const route = require('./routes')
 const db = require('./config/db')
@@ -24,15 +26,16 @@ app.use(express.urlencoded({
 }))
 app.use(express.json())
 
+// custom middlewares
+app.use(sortMiddleware)
+
 // HTTP logger
 app.use(morgan('combined'))
 
 // Template engine
 app.engine('hbs', engine({
     extname: 'hbs', // custom đuôi file .hbs
-    helpers: {
-        sum: (a, b) => a + b
-    }
+    helpers: require('./helper/handlebars')
 }))
 
 // Thiết lập Handlebars làm công cụ template mặc định.
