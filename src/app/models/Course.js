@@ -16,13 +16,15 @@ const CourseSchema = new Schema({
 
 // custom query helper
 CourseSchema.query.sortable = function(req) {
+    // kiểm tra req.query có tồn tại key _sort không
     if (req.query.hasOwnProperty('_sort')) {
-        const isValidType = ['asc', 'desc'].includes(req.query.type)
+        const isValidType = 
+            ['asc', 'desc'].includes(req.query.type)
         return this.sort({
-            [req.query.column]: isValidType ? req.query.type : 'asc'
+            [req.query.column]: 
+                isValidType ? req.query.type : 'asc'
         })
     }
-
     return this
 }
 

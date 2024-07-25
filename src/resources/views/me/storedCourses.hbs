@@ -128,7 +128,8 @@
   const deleteCourseForm = document.forms['delete-course-form'];
   const containerForm = document.forms['container-form'];
   const checkboxAll = document.querySelector('#checkbox-all');
-  const courseItemCheckbox = document.querySelectorAll('input[name="courseIds[]"]');
+  const courseItemCheckbox = 
+    document.querySelectorAll('input[name="courseIds[]"]');
   const btnSubmit = document.querySelector('.btn-submit');
   let courseId;
 
@@ -157,7 +158,6 @@
   });
 
   btnSubmit.addEventListener('click', (event) => {
-    event.preventDefault();
     containerForm.submit();
   });
 
